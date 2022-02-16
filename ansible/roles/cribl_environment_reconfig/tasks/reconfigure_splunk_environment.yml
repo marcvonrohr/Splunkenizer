@@ -1,0 +1,26 @@
+---
+# Recofigure environment for the use of cribl servers
+
+- name: call restart splunk from role splunk_software
+  include_role:
+    name: splunk_software
+    tasks_from: restart_splunk
+
+- name: get outputs.conf path from wildcard path
+  shell: 'ls -1 /opt/spl*/etc/apps/*_all_forwarder_outputs/local/outputs.conf'
+  register: outputsPath
+
+- name: "({{ outputsPath.stdout}}) setting tcpout value"
+  replace:
+    path: "{{ outputsPath.stdout }}"
+    regexp: '^(.*(\s+|\:))all_indexers(\]?[\n\r])'
+    replace: '\1all_cribl\3'
+  notify: restart splunk
+
+- name: "({{ outputsPath.stdout }}) setting server value"
+  replace:
+    path: "{{ outputsPath.stdout }}"
+    regexp: '^(.*\s+)idx\w*:\d\d\d\d([\n\r])'
+    replace: '\1cribl:9997\2'
+  notify: restart splunk
+

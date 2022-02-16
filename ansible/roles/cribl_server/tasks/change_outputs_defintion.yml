@@ -1,0 +1,29 @@
+- name: stop splunk by service control
+  tags:
+    - splunk
+    - splunk_software
+    - splunk_upgrade
+  include_tasks: stop_splunk.yml
+
+- name: "({{ app_name }}) setting defaultGroup value"
+  tags:
+    - splunk
+    - splunk_baseconfig
+    - org_all_forwarder_outputs
+  ini_file:
+    path: "{{ app_path }}/{{ app_dest_name }}/local/outputs.conf"
+    section: tcpout
+    option: defaultGroup
+    value: "{{ splunk_outputs_tcpout_list|map('regex_replace','^(.*)$','\\1_indexers')|join(',') }}"
+    owner: "{{splunk_user}}"
+    group: "{{splunk_group}}"
+    mode: 0644
+  notify: restart splunk
+  when: splunk_outputs_idxc_list|length > 0 or splunk_outputs_idx_list|length > 0
+
+- name: start splunk by service control
+  tags:
+    - splunk
+    - splunk_software
+    - splunk_upgrade
+  include_tasks: start_splunk.yml

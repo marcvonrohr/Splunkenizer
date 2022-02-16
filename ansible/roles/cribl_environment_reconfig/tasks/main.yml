@@ -1,0 +1,7 @@
+---
+# Main playbook for this role
+
+- include_tasks: reconfigure_splunk_environment.yml
+  tags:
+    - cribl
+

@@ -1,0 +1,15 @@
+---
+# Main playbook for this role
+
+- include_tasks: create_user_cribl_logstream.yml
+  tags:
+    - cribl
+
+- include_tasks: setup_cribl_logstream.yml
+  tags:
+    - cribl
+
+- include_tasks: configure_cribl_logstream.yml
+  tags:
+    - cribl
+

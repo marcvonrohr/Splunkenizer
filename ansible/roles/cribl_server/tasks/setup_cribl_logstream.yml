@@ -1,0 +1,19 @@
+---
+# Download and installation of the default installation binaries
+
+- name: Download and unarchive cribl logstream installation files
+  shell: curl -Lso - $(curl https://cdn.cribl.io/dl/latest-x64) | tar zxvf - 
+  args:
+    executable: /bin/bash 
+    chdir: /opt
+    warn: false
+  tags: cribl
+
+- name: Set directory permissions of crible files
+  file:
+    path: /opt/cribl
+    owner: cribl
+    group: cribl
+    state: directory  
+    recurse: yes
+    mode: '0744'

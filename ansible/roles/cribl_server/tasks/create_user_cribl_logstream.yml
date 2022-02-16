@@ -1,0 +1,23 @@
+---
+# This playbook creates the users required in a server
+
+- name: add cribl group
+  tags:
+    - cribl
+  group:
+    name: cribl
+    state: present
+  when: cribl_group_create|default(true) == true
+
+- name: add cribl user
+  tags:
+    - cribl
+  user:
+    name: cribl
+    group: cribl
+    comment: "Cribl User"
+    shell: /bin/bash
+    create_home: yes
+    state: present
+  when: cribl_user_create|default(true) == true
+

@@ -1,0 +1,26 @@
+outputs:
+  out_splunk_tcp:
+    systemFields:
+      - cribl_pipe
+    dnsResolvePeriodSec: 600
+    loadBalanceStatsPeriodSec: 300
+    maxConcurrentSenders: 0
+    nestedFields: none
+    throttleRatePerSec: "0"
+    onBackpressure: block
+    indexerDiscovery: false
+    tls:
+      disabled: true
+    connectionTimeout: 10000
+    writeTimeout: 60000
+    enableMultiMetrics: false
+    enableACK: true
+    authType: manual
+    excludeSelf: true
+    hosts:
+      - port: 9997
+        tls: inherit
+        weight: 1
+        host: {{ hostvars['idx'].ip_addr }}
+    authToken: ""
+    type: splunk_lb

@@ -1,0 +1,33 @@
+---
+# Copy the configurations to the cribl host and start the service
+
+- name: Copy configuration files to cribl host
+  copy:
+    src: files/opt/cribl/local
+    dest: /opt/cribl
+    owner: cribl
+    group: cribl
+    mode: 0644
+
+- name: Copy outputs.yml configuration template file to cribl host
+  template:
+    src: opt/cribl/local/cribl/outputs.j2
+    dest: /opt/cribl/local/cribl/outputs.yml
+    owner: cribl
+    group: cribl
+    mode: 0644
+
+- name: Copy cribl service file to host
+  copy:
+    src: files/etc/systemd/system/cribl.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: 0777
+
+- name: Enable cribl service
+  service:
+    name: cribl
+    enabled: yes
+    state: started
+

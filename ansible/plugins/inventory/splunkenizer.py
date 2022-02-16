@@ -297,7 +297,7 @@ class InventoryModule(BaseInventoryPlugin):
         #TODO: set ansible_host: self.inventory.set_variable(hostname, 'ansible_host', data['Mgmt IP'])
         
         # Defining allowed settings
-        allowed_roles = ['cluster_master','deployer','deployment_server','heavy_forwarder','indexer','license_master','monitoring_console','search_head','universal_forwarder','universal_forwarder_windows']
+        allowed_roles = ['cluster_master','deployer','deployment_server','heavy_forwarder','indexer','license_master','monitoring_console','search_head','universal_forwarder','universal_forwarder_windows','cribl_server']
         allowed_hostvars = ['splunk_version','splunk_admin_password','splunk_license_file','splunk_outputs','splunk_search_peers','splunk_conf','os','aws','virtualbox','ip_addr','custom']
         allowed_roles_with_site = ['indexer','search_head','cluster_master']
 

@@ -1,0 +1,25 @@
+id: default
+groups: {}
+routes:
+  - id: xueXY8
+    name: splunk_to_splunk
+    final: true
+    disabled: false
+    pipeline: pipeline_splunk
+    description: ""
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: __inputId=='splunk:in_splunk_tcp'
+    output: out_splunk_tcp
+  - id: default
+    name: default
+    final: true
+    disabled: false
+    pipeline: main
+    description: ""
+    clones: []
+    enableOutputExpression: false
+    outputExpression: null
+    filter: "true"
+    output: default
